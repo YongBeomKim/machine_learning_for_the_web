@@ -7,7 +7,7 @@ class Person(models.Model):
     mail = models.EmailField(max_length=255, blank=True)
     #display name on admin panel
     def __unicode__(self):
-            return self.name
+        return self.name
             
     class Meta:
-               ordering = ['name']
+        ordering = ['name']
