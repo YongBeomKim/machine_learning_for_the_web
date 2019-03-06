@@ -2,18 +2,25 @@
 
 {% block content %}
 <h2 align = Center>Email address book</h2>
-<P align=Center>[
-{% for letter in alphabet %}
-<a href="{% url 'addressesbook'  %}?letter={{letter}}" > {{letter}} </a>
-{% endfor %}
-|<a href="addressesapp/book.html"> Index </a> ] </P>
+<P align=Center>
+[
+    {% for letter in alphabet %}
+        {% comment %} ?letter=A 와 같이 개별 알파벳 GET Query 를 출력 {% endcomment %}
+        <a href="{% url 'addressesbook' %}?letter={{letter}}">{{letter}}</a>
+    {% endfor %}
+    | <a href="addressesapp/book.html">인덱스 </a> 
+] 
+</P>
+
 <section id="gridSystem">
 {% for contact in contacts %}
-<div class="row show-grid">
-	<p align = Center><strong> name: </strong>{{ contact.name }} <strong>email:</strong> {{ contact.mail }}&nbsp&nbsp&nbsp&nbsp
-        <a class="right" href="{% url 'delete_person' contact.name  %}" >   delete </a>
-    </p>
-</div>
+    <div class="row show-grid">
+        <p align = Center>
+        <strong> name: </strong> {{ contact.name }} 
+        <strong> email: </strong> {{ contact.mail }} &nbsp&nbsp&nbsp&nbsp
+        <a class="right" href="{% url 'delete_person' contact.name %}">delete </a>
+        </p>
+    </div>
 {% endfor %}
 </section>
 

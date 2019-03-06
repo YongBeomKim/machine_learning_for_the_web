@@ -31,7 +31,6 @@ LOGGING = {
         },  
     },
     'loggers': {
-
         '': {
             'handlers': ['default'],
             'level': 'DEBUG',
@@ -45,8 +44,6 @@ SECRET_KEY = '6!gywg@(e+gc7)vz#e71$cy3nj&_w1)&gch#rhtu#u7r^%uir)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-
 
 ALLOWED_HOSTS = []
 

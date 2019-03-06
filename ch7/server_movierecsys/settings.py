@@ -10,10 +10,7 @@ SECRET_KEY = '_65ld$#3ftc+^4d%o7npjw)w-ck*hv_@g1$tal(+p6qrc#fue0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -65,9 +62,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'server_movierecsys.urls'
-
 WSGI_APPLICATION = 'server_movierecsys.wsgi.application'
-
 
 # Database
 DATABASES = {
@@ -87,14 +82,10 @@ CACHES = {
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+USE_I18N  = True
+USE_L10N  = True
+USE_TZ    = True
 
 
 # Static files (CSS, JavaScript, Images)

@@ -435,3 +435,147 @@ ViewDoesNotExist: Could not import addressesapp.views.get_contacts. View does no
 2019-03-04 12:47:02,463 DEBUG root address book
 2019-03-04 12:47:04,411 DEBUG root address book
 2019-03-04 12:47:06,012 DEBUG root address book
+2019-03-06 08:56:29,445 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:29,446 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:29,446 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:29,447 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:29,448 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:29,448 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:30,741 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:30,742 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:30,742 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:30,743 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:30,745 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:30,745 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:32,994 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:32,994 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:32,995 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:32,995 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:32,997 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:32,997 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:38,182 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:38,183 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:38,183 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:38,184 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:38,185 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:38,186 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:45,276 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:45,277 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:45,283 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:45,284 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:45,285 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:45,286 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:46,761 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:46,762 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:46,762 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:46,763 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:46,765 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:46,765 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:49,391 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:49,393 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:49,394 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:49,394 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:49,396 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:49,396 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:50,887 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:50,887 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:50,894 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:50,895 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:50,897 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:50,897 DEBUG parso.python.diff diff parser end
+2019-03-06 08:56:54,743 DEBUG parso.python.diff diff parser start
+2019-03-06 08:56:54,744 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:56:54,744 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:56:54,745 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:56:54,747 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:56:54,748 DEBUG parso.python.diff diff parser end
+2019-03-06 08:57:35,818 DEBUG parso.python.diff diff parser start
+2019-03-06 08:57:35,819 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:57:35,819 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:57:35,820 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:57:35,821 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:57:35,822 DEBUG parso.python.diff diff parser end
+2019-03-06 08:57:39,130 DEBUG parso.python.diff diff parser start
+2019-03-06 08:57:39,131 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:57:39,131 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:57:39,132 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:57:39,134 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:57:39,134 DEBUG parso.python.diff diff parser end
+2019-03-06 08:57:39,886 DEBUG parso.python.diff diff parser start
+2019-03-06 08:57:39,887 DEBUG parso.python.diff diff parser calculated
+2019-03-06 08:57:39,887 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 08:57:39,888 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 08:57:39,889 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 08:57:39,890 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:08,208 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:08,208 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:08,208 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:08,208 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:08,208 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:08,208 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:09,920 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:09,921 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:09,921 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:09,922 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:09,923 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:09,924 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:09,927 DEBUG parso.cache pickle loaded: /home/markbaum/Python/Source/Projects/ml_dj/ch6/addressesapp/__init__.py
+2019-03-06 09:00:09,946 DEBUG parso.cache pickle loaded: /home/markbaum/Python/Source/Projects/ml_dj/ch6/addressesapp/models.py
+2019-03-06 09:00:11,184 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:11,185 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:11,185 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:11,186 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:11,187 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:11,188 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:12,420 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:12,421 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:12,421 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:12,422 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:12,423 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:12,423 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:13,500 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:13,501 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:13,507 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:13,508 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:13,509 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:13,510 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:15,456 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:15,457 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:15,457 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:15,458 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:15,459 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:15,460 DEBUG parso.python.diff diff parser end
+2019-03-06 09:00:18,656 DEBUG parso.python.diff diff parser start
+2019-03-06 09:00:18,657 DEBUG parso.python.diff diff parser calculated
+2019-03-06 09:00:18,657 DEBUG parso.python.diff diff: line_lengths old: 1, new: 1
+2019-03-06 09:00:18,658 DEBUG parso.python.diff diff replace old[1:1] new[1:1]
+2019-03-06 09:00:18,660 DEBUG parso.python.diff parse_part from 1 to 1 (to 0 in part parser)
+2019-03-06 09:00:18,660 DEBUG parso.python.diff diff parser end
+2019-03-06 09:16:13,854 DEBUG root address book
+2019-03-06 09:16:36,448 DEBUG root address book
+2019-03-06 09:22:05,622 DEBUG root address book
+2019-03-06 09:22:07,676 DEBUG root address book
+2019-03-06 09:22:13,700 DEBUG root address book
+2019-03-06 11:00:56,171 DEBUG root address book
+2019-03-06 11:01:17,764 DEBUG root address book
+2019-03-06 11:01:18,440 DEBUG root address book
+2019-03-06 11:01:27,131 DEBUG root here
+2019-03-06 11:01:30,334 DEBUG root address book
+2019-03-06 11:02:10,460 DEBUG root address book
+2019-03-06 11:02:13,786 DEBUG root address book
+2019-03-06 11:02:15,033 DEBUG root address book
+2019-03-06 11:02:54,239 DEBUG root address book
+2019-03-06 11:02:54,982 DEBUG root address book
+2019-03-06 11:03:34,404 DEBUG root address book
+2019-03-06 11:03:36,167 DEBUG root address book
+2019-03-06 11:03:37,409 DEBUG root address book
+2019-03-06 11:12:55,365 DEBUG root address book
+2019-03-06 11:13:02,207 DEBUG root address book
+2019-03-06 11:14:34,808 DEBUG root address book
+2019-03-06 11:14:35,589 DEBUG root address book
+2019-03-06 11:14:57,374 DEBUG root address book
+2019-03-06 11:14:59,257 DEBUG root address book
+2019-03-06 11:42:35,519 DEBUG root address book
+2019-03-06 11:42:41,215 DEBUG root here
+2019-03-06 11:43:30,213 DEBUG root here
+2019-03-06 12:28:44,854 DEBUG root address book

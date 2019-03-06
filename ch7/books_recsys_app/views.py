@@ -1,35 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
-from django.shortcuts import render_to_response
 #from django.template import RequestContext
 from django.template import loader
-from ast import literal_eval
-import urllib
-from books_recsys_app.models import MovieData,MovieRated,UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from django.conf import settings   
-import logging
-import json
-from scipy import sparse
+from django.core.cache import cache
+from ast import literal_eval
+from books_recsys_app.models import MovieData,MovieRated,UserProfile
+import urllib, logging, json, unicodedata, copy, math
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from django.core.cache import cache
+from scipy import sparse
 import numpy as np
-import unicodedata
-import copy
-import math
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import WordPunctTokenizer
+from nltk.stem.porter import PorterStemmer
 tknzr = WordPunctTokenizer()
 #nltk.download('stopwords')
 stoplist = stopwords.words('english')
-from nltk.stem.porter import PorterStemmer
 
-umatrixpath = '/Users/andrea/Desktop/book_packt/chapters/7/server_movierecsys/umatrix.csv'
+umatrixpath = './umatrix.csv'
 nmoviesperquery=5
 nminimumrates=5
 numrecs=5
@@ -57,40 +50,40 @@ def home(request):
                                 urllib.urlencode({'q': data})))
     elif request.method == 'GET':
         get_data = request.GET
-        data = get_data.get('q',None)
-        titles = cache.get('titles')
-        if titles==None:
-            print 'load data...'
+        data     = get_data.get('q',None)
+        titles   = cache.get('titles')
+        if titles == None:
+            print ('load data...')
             texts = []
             mobjs = MovieData.objects.all()
-            ndim = mobjs[0].ndim
-            matr = np.empty([1,ndim])
+            ndim  = mobjs[0].ndim
+            matr  = np.empty([1,ndim])
             titles_list = []
-            cnt=0
+            cnt   = 0
             for obj in mobjs[:]:
                 texts.append(obj.description)
                 newrow = np.array(obj.array)
-                #print 'enw:',newrow
-                if cnt==0:
-                    matr[0]=newrow
+                #print ('enw:',newrow)
+                if cnt == 0:
+                    matr[0] = newrow
                 else:
                     matr = np.vstack([matr, newrow])
                 titles_list.append(obj.title)
                 cnt+=1
-            vectorizer = TfidfVectorizer(min_df=1,max_features=ndim) 
+            vectorizer = TfidfVectorizer(min_df=1, max_features=ndim) 
             processedtexts = PreprocessTfidf(texts,stoplist,True)
             model = vectorizer.fit(processedtexts)
             cache.set('model',model)
             cache.set('data', matr)
             cache.set('titles', titles_list)
         else:
-            print 'loaded',str(len(titles))
+            print ('loaded',str(len(titles)))
           
         Umatrix = cache.get('umatrix')
         if Umatrix.any()==None:
             df_umatrix = pd.read_csv(umatrixpath)
             Umatrix = df_umatrix.values[:,1:]
-            print 'umatrix:',Umatrix.shape
+            print ('umatrix:',Umatrix.shape)
             cache.set('umatrix',Umatrix)
             cf_itembased = CF_itembased(Umatrix)
             cache.set('cf_itembased',cf_itembased)
@@ -103,20 +96,20 @@ def home(request):
         
         #load all movies vectors/titles
         matr = cache.get('data')
-        print 'matr',len(matr)
+        print ('matr',len(matr))
         titles = cache.get('titles')
-        print 'ntitles:',len(titles)
+        print ('ntitles:',len(titles))
         model_tfidf = cache.get('model')
 
         #load in cache rec sys methods
-        print 'load methods...'
+        print ('load methods...')
         
 
         #find movies similar to the query
-        #print 'names:',len(model_tfidf.get_feature_names())
+        #print ('names:',len(model_tfidf.get_feature_names()))
         queryvec = model_tfidf.transform([data.lower().encode('ascii','ignore')]).toarray()
         
-        #print 'vec:', queryvec
+        #print ('vec:', queryvec)
         
         sims= cosine_similarity(queryvec,matr)[0]
         indxs_sims = list(sims.argsort()[::-1])
@@ -129,7 +122,7 @@ def home(request):
             'books_recsys_app/query_results.html',  context)
         
 def auth(request):
-    print 'auth--:',request.user.is_authenticated()
+    print ('auth--:', request.user.is_authenticated())
     if request.method == 'GET':
         data = request.GET
         auth_method = data.get('auth_method')
@@ -144,7 +137,7 @@ def auth(request):
         name = post_data.get('name', None)
         pwd = post_data.get('pwd', None)
         pwd1 = post_data.get('pwd1', None)
-        print 'auth:',request.user.is_authenticated()
+        print ('auth:',request.user.is_authenticated())
         create = post_data.get('create', None)#hidden input
         if name and pwd and create:
            if User.objects.filter(username=name).exists() or pwd!=pwd1:
@@ -186,7 +179,7 @@ def RemoveFromList(liststrings,string):
 def rate_movie(request):
     data = request.GET
     rate = data.get("vote")
-    print request.user.is_authenticated()
+    print (request.user.is_authenticated())
     movies,moviesindxs = zip(*literal_eval(data.get("movies")))
     movie = data.get("movie")
     movieindx = int(data.get("movieindx"))
@@ -217,7 +210,7 @@ def rate_movie(request):
     #get back the remaining movies
     movies = RemoveFromList(movies,movie)
     moviesindxs = RemoveFromList(moviesindxs,movieindx)
-    print movies
+    print (movies)
     context = {}
     context["movies"] = zip(movies,moviesindxs)
     context["rates"] = [1,2,3,4,5]
@@ -227,7 +220,7 @@ def rate_movie(request):
 def movies_recs(request):
     
     userprofile = None
-    print 'uuuu:',request.user.is_superuser
+    print ('uuuu:', request.user.is_superuser)
     if request.user.is_superuser:
         return render_to_response(
             'books_recsys_app/superusersignin.html',{})
@@ -237,7 +230,7 @@ def movies_recs(request):
         return render_to_response(
             'books_recsys_app/pleasesignin.html', {})
     ratedmovies=userprofile.ratedmovies.all()
-    print 'rated:',ratedmovies,'--',[r.movieindx for r in ratedmovies]
+    print ('rated:',ratedmovies, '--', [r.movieindx for r in ratedmovies])
     context = {}
     if len(ratedmovies)<nminimumrates:
         context['nrates'] = len(ratedmovies)
@@ -246,25 +239,25 @@ def movies_recs(request):
             'books_recsys_app/underminimum.html', context)
             
     u_vec = np.array(userprofile.array)
-    #print 'uu:',u_vec
+    #print ('uu:',u_vec)
     Umatrix = cache.get('umatrix')
-    #print Umatrix.shape,'--',len(u_vec)
+    #print (Umatrix.shape, '--', len(u_vec))
     movieslist = cache.get('titles')
     #recommendation...
     u_rec = None
     if recmethod == 'cf_userbased':
-        print recmethod
+        print (recmethod)
         u_rec = CF_userbased(u_vec,numrecs,Umatrix)
         
     elif recmethod == 'cf_itembased':
-        print recmethod
+        print (recmethod)
         cf_itembased = cache.get('cf_itembased')
         if cf_itembased == None:
             cf_itembased = CF_itembased(Umatrix)
         u_rec = cf_itembased.CalcRatings(u_vec,numrecs)
         
     elif recmethod == 'loglikelihood':
-        print recmethod
+        print (recmethod)
         llr = cache.get('loglikelihood')
         if llr == None:
             llr = LogLikelihood(Umatrix,movieslist)
@@ -440,7 +433,7 @@ class LogLikelihood(object):
                    self.items_llr.ix[i,j] = self.calc_llr(tmpk)
                 else:
                    self.items_llr.ix[i,j] = self.items_llr.iat[j,i]
-        print self.items_llr
+        print (self.items_llr)
         
     def GetRecItems(self,u_vec,indxs=False):
         items_weight = np.dot(u_vec,self.items_llr)
