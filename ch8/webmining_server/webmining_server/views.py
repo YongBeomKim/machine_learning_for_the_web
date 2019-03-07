@@ -62,7 +62,7 @@ def bing_api(query):
         reviews_urls = [ d['Url'] for d in results['d']['results']]
     else:
         nqueries = int(float(num_reviews)/top)+1
-        for i in xrange(nqueries):
+        for i in range(nqueries):
             offset = top*i
             if i==nqueries-1:
                 top = num_reviews-offset
@@ -85,15 +85,15 @@ def bing_api(query):
             results = json.load(response)
             reviews_urls += [ d['Url'] for d in results['d']['results']]
             
-    print 'REVIEWS NUMBER:',len(reviews_urls)
+    print ('REVIEWS NUMBER:',len(reviews_urls))
     return reviews_urls
 
 def parse_bing_results():
     file_data = open(os.path.dirname(__file__)+'/bing_the_martian_results.json','r')
     bing_json = json.load(file_data)
-    print len(bing_json['d']['results'])
+    print (len(bing_json['d']['results']))
     reviews_urls = [ d['Url'] for d in bing_json['d']['results']]
-    print reviews_urls
+    print (reviews_urls)
     return reviews_urls
             
 def analyzer(request):
@@ -125,17 +125,17 @@ def analyzer(request):
            return render_to_response(
                'movie_reviews/noreviewsfound.html', context)
                
-        print 'urls:',str(urls[:num_reviews])
+        print ('urls:',str(urls[:num_reviews]))
         if not SearchTerm.objects.filter(term=stripped_query).exists():
            s = SearchTerm(term=stripped_query)
            s.save()
            try:
                #scrape
                cmd = 'cd ../scrapy_spider & scrapy crawl scrapy_spider_reviews -a url_list=%s -a search_key=%s' %('\"'+str(','.join(urls[:num_reviews]).encode('utf-8'))+'\"','\"'+str(stripped_query)+'\"')
-               print 'cmd:',cmd
+               print ('cmd:',cmd)
                os.system(cmd)
            except:
-               print 'error!'
+               print ('error!')
                s.delete()
         else:
            #collect the pages already scraped 
@@ -258,7 +258,7 @@ def pgrank_view(request,pk):
             urls.append(u.url)
         #crawl
         cmd = 'cd ../scrapy_spider & scrapy crawl scrapy_spider_recursive -a url_list=%s -a search_id=%s' %('\"'+str(','.join(urls[:]).encode('utf-8'))+'\"','\"'+str(pk)+'\"')
-        print 'cmd:',cmd
+        print ('cmd:',cmd)
         os.system(cmd)
 
     links = s.links.all()

@@ -1,13 +1,12 @@
 from django.core.management.base import BaseCommand
-import os
-import optparse
 import numpy as np
-import json
 import pandas as pd
-import requests
+import json, os, optparse, requests
 
-#python  manage.py get_plotsfromtitles --input=/Users/andrea/Desktop/book_packt/chapters_5/data/utilitymatrix.csv --outputplots=plots.csv --outputumatrix='umatrix.csv'
+from django.core.cache import cache
+# python  manage.py get_plotsfromtitles --input=/Users/andrea/Desktop/book_packt/chapters_5/data/utilitymatrix.csv --outputplots=plots.csv --outputumatrix='umatrix.csv'
 class Command(BaseCommand):
+
     '''
     option_list = BaseCommand.add_arguments() + (
             optparse.make_option('-i', '--input', dest='umatrixfile',
@@ -39,23 +38,20 @@ class Command(BaseCommand):
                  action='store',
                  help='output file')
         
-    def getplotfromomdb(self,col,df_moviesplots,df_movies,df_utilitymatrix):
-        string = col.split(';')[0]
-        
-        title=string[:-6].strip()
-        year = string[-5:-1]      
-        plot = ' '.join(title.split(' ')).encode('ascii','ignore')+'. '
-        
-        url = "http://www.omdbapi.com/?t="+title+"&y="+year+"&plot=full&r=json"
-        
-        headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36"}
-        r = requests.get(url,headers=headers)
+    def getplotfromomdb(self, col, df_moviesplots,df_movies,df_utilitymatrix):
+        string  = col.split(';')[0]        
+        title   = string[:-6].strip()
+        year    = string[-5:-1]      
+        plot    = ' '.join(title.split(' ')).encode('ascii','ignore')+'. '
+        url     = "http://www.omdbapi.com/?t="+title+"&y="+year+"&plot=full&r=json"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36"}
+        r       = requests.get(url,headers=headers)
         jsondata =  json.loads(r.content)
         if 'Plot' in jsondata:
             #store plot + title
             plot += jsondata['Plot'].encode('ascii','ignore')
 
-        if plot!=None and plot!='' and plot!=np.nan and len(plot)>3:#at least 3 letters to consider the movie
+        if plot != None and plot != '' and plot != np.nan and len(plot)>3:#at least 3 letters to consider the movie
             df_moviesplots.loc[len(df_moviesplots)]=[string,plot]
             df_utilitymatrix[col] = df_movies[col]
             print len(df_utilitymatrix.columns)

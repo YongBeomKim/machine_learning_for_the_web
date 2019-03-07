@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
-#from django.template import RequestContext
+
+# from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings   
 from django.core.cache import cache
 from ast import literal_eval
-from books_recsys_app.models import MovieData,MovieRated,UserProfile
+from .models import MovieData, MovieRated, UserProfile
 import urllib, logging, json, unicodedata, copy, math
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -18,24 +19,25 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import WordPunctTokenizer
 from nltk.stem.porter import PorterStemmer
-tknzr = WordPunctTokenizer()
+
+
+tknzr       = WordPunctTokenizer()
 #nltk.download('stopwords')
-stoplist = stopwords.words('english')
-
+stoplist    = stopwords.words('english')
 umatrixpath = './umatrix.csv'
-nmoviesperquery=5
-nminimumrates=5
-numrecs=5
-recmethod = 'loglikelihood'
+nmoviesperquery = 5
+nminimumrates   = 5
+numrecs         = 5
+recmethod   = 'loglikelihood'
 
 
-def PreprocessTfidf(texts,stoplist=[],stem=False):
+def PreprocessTfidf(texts, stoplist=[], stem=False):
     newtexts = []
     for text in texts:
         if stem:
-           tmp = [w for w in tknzr.tokenize(text) if w not in stoplist]
+            tmp = [w for w in tknzr.tokenize(text) if w not in stoplist]
         else:
-           tmp = [stemmer.stem(w) for w in [w for w in tknzr.tokenize(text) if w not in stoplist]]
+            tmp = [stemmer.stem(w) for w in [w for w in tknzr.tokenize(text) if w not in stoplist]]
         newtexts.append(' '.join(tmp))
     return newtexts
 
@@ -46,8 +48,10 @@ def home(request):
         data = {}
         data = post_data.get('data', None)
         if data:
-            return redirect('%s?%s' % (reverse('books_recsys_app.views.home'),
-                                urllib.urlencode({'q': data})))
+            return redirect(reverse('home',kwargs={'q': data}))            
+            # redirect('%s?%s' % (reverse('books_recsys_app.views.home'),
+            #                     urllib.urlencode({'q': data})))
+
     elif request.method == 'GET':
         get_data = request.GET
         data     = get_data.get('q',None)
@@ -70,9 +74,10 @@ def home(request):
                     matr = np.vstack([matr, newrow])
                 titles_list.append(obj.title)
                 cnt+=1
-            vectorizer = TfidfVectorizer(min_df=1, max_features=ndim) 
+
+            vectorizer     = TfidfVectorizer(min_df=1, max_features=ndim) 
             processedtexts = PreprocessTfidf(texts,stoplist,True)
-            model = vectorizer.fit(processedtexts)
+            model          = vectorizer.fit(processedtexts)
             cache.set('model',model)
             cache.set('data', matr)
             cache.set('titles', titles_list)
@@ -81,8 +86,8 @@ def home(request):
           
         Umatrix = cache.get('umatrix')
         if Umatrix.any()==None:
-            df_umatrix = pd.read_csv(umatrixpath)
-            Umatrix = df_umatrix.values[:,1:]
+            df_umatrix  = pd.read_csv(umatrixpath)
+            Umatrix     = df_umatrix.values[:,1:]
             print ('umatrix:',Umatrix.shape)
             cache.set('umatrix',Umatrix)
             cf_itembased = CF_itembased(Umatrix)
@@ -90,9 +95,8 @@ def home(request):
             cache.set('loglikelihood',LogLikelihood(Umatrix,movieslist))
             
         if not data:
-            return render_to_response(
+            return render(request,
                 'books_recsys_app/home.html',  context)
-        
         
         #load all movies vectors/titles
         matr = cache.get('data')
@@ -100,25 +104,22 @@ def home(request):
         titles = cache.get('titles')
         print ('ntitles:',len(titles))
         model_tfidf = cache.get('model')
-
         #load in cache rec sys methods
         print ('load methods...')
         
-
         #find movies similar to the query
         #print ('names:',len(model_tfidf.get_feature_names()))
         queryvec = model_tfidf.transform([data.lower().encode('ascii','ignore')]).toarray()
-        
         #print ('vec:', queryvec)
         
-        sims= cosine_similarity(queryvec,matr)[0]
-        indxs_sims = list(sims.argsort()[::-1])
+        sims         = cosine_similarity(queryvec,matr)[0]
+        indxs_sims   = list(sims.argsort()[::-1])
         #print indxs_sims
         titles_query = list(np.array(titles)[indxs_sims][:nmoviesperquery])
         
         context['movies']= zip(titles_query,indxs_sims[:nmoviesperquery])
         context['rates']=[1,2,3,4,5]
-        return render_to_response(
+        return render(request,
             'books_recsys_app/query_results.html',  context)
         
 def auth(request):

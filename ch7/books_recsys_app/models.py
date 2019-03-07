@@ -6,13 +6,13 @@ import numpy as np
 
 class UserProfile(models.Model):
     # user = models.ForeignKey(User, unique=True)
-    user  = models.OneToOneField(User)
-    array = jsonfield.JSONField()
+    user     = models.OneToOneField(User)
+    array    = jsonfield.JSONField()
     arrayratedmoviesindxs = jsonfield.JSONField()
-    name  = models.CharField(max_length=1000)
+    name     = models.CharField(max_length=1000)
     lastrecs = jsonfield.JSONField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -25,13 +25,13 @@ class UserProfile(models.Model):
             self.lastrecs = json.dumps(recsvec.tolist())
             super(UserProfile, self).save(*args, **kwargs)
         else:
-            nmovies = MovieData.objects.count()
-            array   = np.zeros(nmovies)
+            nmovies     = MovieData.objects.count()
+            array       = np.zeros(nmovies)
             ratedmovies = self.ratedmovies.all()
             self.arrayratedmoviesindxs = json.dumps([m.movieindx for m in ratedmovies])
             for m in ratedmovies:
                 array[m.movieindx] = m.value
-            self.array = json.dumps(array.tolist())
+            self.array  = json.dumps(array.tolist())
             super(UserProfile, self).save(*args, **kwargs)
     
 
